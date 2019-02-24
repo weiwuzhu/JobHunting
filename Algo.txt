@@ -1,3 +1,5 @@
+Catalan Number: 1/(n+1)C(n, 2n) = f(0)*f(n) + f(1)*f(n-1) + f(2)*f(n-2) + ... + f(n)*f(0)
+2^n - 1 = C(1, n) + C(2, n) + ... + C(n, n)
 Permutations : https://leetcode.com/problems/permutations/
     def permute(self, nums):
         """
