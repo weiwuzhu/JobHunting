@@ -164,3 +164,42 @@ public boolean isPalindrome(String s, int low, int high){
       if(s.charAt(low++) != s.charAt(high--)) return false;
    return true;
 } 
+
+102. Binary Tree Level Order Traversal
+    def levelOrderBFS(self, root):
+        if not root:
+            return []
+        
+        result = []
+        q = collections.deque()
+        q.append(root)
+        while q:
+            size = len(q)
+            line = []
+            for i in range(size):
+                top = q.popleft()
+                line.append(top.val)
+                if top.left:
+                    q.append(top.left)
+                if top.right:
+                    q.append(top.right)
+            result.append(line)
+        return result
+        
+    def levelOrderDFS(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        result = []
+        self.dfs(root, 0, result)
+        return result
+       
+    def dfs(self, root, level, result):
+        if not root:
+            return
+        if level == len(result):
+            result.append([])
+        result[level].append(root.val)
+        self.dfs(root.left, level+1, result)
+        self.dfs(root.right, level+1, result)
