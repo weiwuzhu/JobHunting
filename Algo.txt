@@ -203,3 +203,102 @@ public boolean isPalindrome(String s, int low, int high){
         result[level].append(root.val)
         self.dfs(root.left, level+1, result)
         self.dfs(root.right, level+1, result)
+        
+109. Convert Sorted List to Binary Search Tree
+    def sortedListToBST(self, head):
+        """
+        :type head: ListNode
+        :rtype: TreeNode
+        """
+        n, cur = 0, head
+        while cur:
+            n += 1
+            cur = cur.next
+        cur = [head]
+        root = self.inorder(n, cur)
+        return root
+        
+    def inorder(self, n, cur):
+        if n <= 0:
+            return None
+        
+        left = self.inorder(n//2, cur)
+        root = TreeNode(cur[0].val)
+        cur[0] = cur[0].next
+        right = self.inorder(n - n//2 - 1, cur)
+        root.left = left
+        root.right = right
+        return root
+
+Convert Binary Search Tree (BST) to Sorted Doubly-Linked List
+// This is a modified in-order traversal adapted to this problem.
+// prev (init to NULL) is used to keep track of previously traversed node.
+// head pointer is updated with the list's head as recursion ends.
+void treeToDoublyList(Node *p, Node *& prev, Node *& head) {
+  if (!p) return;
+  treeToDoublyList(p->left, prev, head);
+  // current node's left points to previous node
+  p->left = prev;
+  if (prev)
+    prev->right = p;  // previous node's right points to current node
+  else
+    head = p; // current node (smallest element) is head of
+              // the list if previous node is not available
+  // as soon as the recursion ends, the head's left pointer 
+  // points to the last node, and the last node's right pointer
+  // points to the head pointer.
+  Node *right = p->right;
+  head->left = p;
+  p->right = head;
+  // updates previous node
+  prev = p;
+  treeToDoublyList(right, prev, head);
+}
+ 
+// Given an ordered binary tree, returns a sorted circular
+// doubly-linked list. The conversion is done in-place.
+Node* treeToDoublyList(Node *root) {
+  Node *prev = NULL;
+  Node *head = NULL;
+  treeToDoublyList(root, prev, head);
+  return head;
+}
+
+123. Best Time to Buy and Sell Stock III (at most two transactions)
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        buy1, sell1, buy2, sell2 = -sys.maxsize, 0, -sys.maxsize, 0
+        for p in prices:
+            buy1 = max(buy1, -p)
+            sell1 = max(sell1, buy1+p)
+            buy2 = max(buy2, sell1-p)
+            sell2 = max(sell2, buy2+p)
+        return sell2
+188. Best Time to Buy and Sell Stock IV (at most k transactions)
+    def maxProfit(self, k, prices):
+        """
+        :type k: int
+        :type prices: List[int]
+        :rtype: int
+        """
+        n = len(prices)
+        if k <= 0 or not prices:
+            return 0
+        
+        if k >= n // 2:
+            profit = 0
+            for i in range(1, n):
+                if prices[i] > prices[i-1]:
+                    profit += prices[i] - prices[i-1]
+            return profit
+        
+        dp = [[0] * n for _ in range(k + 1)]
+        for i in range(1, k + 1):
+            maxbuy = -prices[0]
+            for j in range(1, n):
+                dp[i][j] = max(dp[i][j-1], maxbuy + prices[j])
+                maxbuy = max(maxbuy, dp[i-1][j-1] - prices[j])
+        return dp[k][n-1]
