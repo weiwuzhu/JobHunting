@@ -315,7 +315,7 @@ class Solution {
     }
 }; 
 
-127. Word Ladder
+127. Word Ladder (time:M*N, space:M*N, where M is length of word, N is word count)
     def ladderLength(self, beginWord, endWord, wordList):
         """
         :type beginWord: str
