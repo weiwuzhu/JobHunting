@@ -364,3 +364,59 @@ class Solution {
                         queue.append((word, level + 1))
                 all_combo_dict[intermediate_word] = []
         return 0
+
+126. Word Ladder II
+    def findLadders(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: List[List[str]]
+        """
+        if not beginWord or not endWord or not wordList or endWord not in wordList:
+            return []
+        
+        result = []
+        wlen = len(wordList[0])
+        nextWords = collections.defaultdict(list)
+        for word in wordList:
+            for i in range(wlen):
+                pattern = word[:i] + '*' + word[i+1:]
+                nextWords[pattern].append(word)
+        distance = {}
+        self.bfs(beginWord, endWord, nextWords, distance)
+        print(distance)
+        self.dfs(beginWord, endWord, nextWords, distance, [], result)
+        return result
+                
+        
+    def bfs(self, beginWord, endWord, nextWords, distance):
+        distance[beginWord] = 0
+        q = collections.deque()
+        q.append(beginWord)
+        lastFound = False
+        while q:
+            size = len(q)
+            for _ in range(size):
+                top = q.popleft()
+                for i in range(len(beginWord)):
+                    pattern = top[:i] + '*' + top[i+1:]
+                    for word in nextWords[pattern]:
+                        if word not in distance:
+                            distance[word] = distance[top] + 1
+                            q.append(word)
+                            if word == endWord:
+                                lastFound = True
+            if lastFound:
+                break
+    
+    def dfs(self, beginWord, endWord, nextWords, distance, path, result):
+        path.append(beginWord)
+        if beginWord == endWord:
+            result.append(list(path))
+        for i in range(len(beginWord)):
+            pattern = beginWord[:i] + '*' + beginWord[i+1:]
+            for word in nextWords[pattern]:
+                if word in distance and distance[word] == distance[beginWord] + 1:
+                    self.dfs(word, endWord, nextWords, distance, path, result)
+        path.pop()
