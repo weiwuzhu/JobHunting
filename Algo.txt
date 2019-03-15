@@ -526,3 +526,45 @@ class Solution {
                 return False
         path[i] = False
         return True
+
+240. Search a 2D Matrix II
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        if not matrix or not matrix[0]:
+            return False
+        m, n = len(matrix), len(matrix[0])
+        i, j = 0, n - 1
+        while i < m and j >= 0:
+            if matrix[i][j] == target:
+                return True
+            elif matrix[i][j] > target:
+                j -= 1
+            else:
+                i += 1
+        return False
+        
+394. Decode String
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        stack.append(['', 1])
+        num = ''
+        for c in s:
+            if c.isdigit():
+                num += c
+            elif c == '[':
+                stack.append(['', int(num)])
+                num = ''
+            elif c == ']':
+                sub, times = stack.pop()
+                stack[-1][0] += sub * times
+            else:
+                stack[-1][0] += c
+        return stack[0][0]
