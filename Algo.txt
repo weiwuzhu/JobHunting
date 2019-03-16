@@ -568,3 +568,32 @@ class Solution {
             else:
                 stack[-1][0] += c
         return stack[0][0]
+
+282. Expression Add Operators
+    def addOperators(self, num, target):
+        """
+        :type num: str
+        :type target: int
+        :rtype: List[str]
+        """
+        result = []
+        self._addOperators(num, target, 0, 0, 0, '', result)
+        return result
+        
+    def _addOperators(self, num, target, start, value, last, path, result):
+        if start == len(num):
+            if target == value:
+                result.append(path)
+            return
+        
+        x = 0
+        for i in range(start, len(num)):
+            x = x * 10 + int(num[i])
+            if start == 0:
+                self._addOperators(num, target, i+1, value+x, x, str(x), result)
+            else:
+                self._addOperators(num, target, i+1, value+x, x, path+'+'+str(x), result)
+                self._addOperators(num, target, i+1, value-x, -x, path+'-'+str(x), result)
+                self._addOperators(num, target, i+1, value-last+x*last, x*last, path+'*'+str(x), result)
+            if num[start] == '0':
+                break
