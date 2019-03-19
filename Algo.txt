@@ -56,6 +56,30 @@ public class Solution {
     }
 }
 
+Union Find: (Path compression, union by rank)
+Worst time complexity is n, union by rank make worse time Log(n), using both of them make amortized time complexity to be constant
+def find(parents, i):   # path compression
+    if parents[i] != i:
+        parents[i] = find(parents, parents[i])
+    return parents[i]
+    
+def find(parents, i):   # path halving
+    while parents[i] != i:
+        parents[i] = parents[parents[i]]
+        i = parents[i]
+    return i
+    
+def unionByRank(parents, ranks, x, y):
+    xRoot = find(parents, x)
+    yRoot = find(parents, y)
+    if xRoot == yRoot:
+        return
+    if ranks[xRoot] > ranks[yRoot]:
+        xRoot, yRoot = yRoot, xRoot
+    parents[xRoot] = yRoot
+    if ranks[xRoot] == ranks[yRoot]:
+        ranks[yRoot] += 1
+    
 Permutations : https://leetcode.com/problems/permutations/
     def permute(self, nums):
         """
