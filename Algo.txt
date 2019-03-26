@@ -654,3 +654,28 @@ public class Solution {
         path.addFirst(departure);
     }
 }
+
+847. Shortest Path Visiting All Nodes
+    def shortestPathLength(self, graph: List[List[int]]) -> int:
+        if not graph:
+            return 0
+        
+        visited = set()
+        mask = 1
+        n = len(graph)
+        q = collections.deque()
+        for i in range(n):
+            q.append((mask, i, 0))
+            mask <<= 1
+        
+        while q:
+            mask, i, dist = q.popleft()
+            if mask == (1 << n) - 1:
+                return dist
+            
+            for j in graph[i]:
+                newMask = mask | (1 << j)
+                if (newMask, j) not in visited:
+                    visited.add((newMask, j))
+                    q.append((newMask, j, dist+1))
+        return -1
