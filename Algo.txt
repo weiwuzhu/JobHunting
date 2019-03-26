@@ -3,6 +3,13 @@ Catalan Number: 1/(n+1)C(n, 2n) = f(0)*f(n) + f(1)*f(n-1) + f(2)*f(n-2) + ... + 
 polynomial, exponential, Nth power of 2 (2^n)
 dfs and bfs should consider VISITED to avoid circle accessing.
 
+Graph:
+1. shortest path:
+    BFS, Dijkstra, Bellman-Ford
+2. topological sort:
+3. Eulerian path:
+    Hierholzer
+
 164. Maximum Gap (radix sort, bucket sort, time:n, space:n)
     def maximumGap(self, nums):
         """
@@ -621,3 +628,28 @@ class Solution {
                 self._addOperators(num, target, i+1, value-last+x*last, x*last, path+'*'+str(x), result)
             if num[start] == '0':
                 break
+
+332. Reconstruct Itinerary (Hierholzer, build graph time: nlogn, hierholzer time: n, space: n)
+public class Solution {
+
+    Map<String, PriorityQueue<String>> flights;
+    LinkedList<String> path;
+
+    public List<String> findItinerary(String[][] tickets) {
+        flights = new HashMap<>();
+        path = new LinkedList<>();
+        for (String[] ticket : tickets) {
+            flights.putIfAbsent(ticket[0], new PriorityQueue<>());
+            flights.get(ticket[0]).add(ticket[1]);
+        }
+        dfs("JFK");
+        return path;
+    }
+
+    public void dfs(String departure) {
+        PriorityQueue<String> arrivals = flights.get(departure);
+        while (arrivals != null && !arrivals.isEmpty())
+            dfs(arrivals.poll());
+        path.addFirst(departure);
+    }
+}
