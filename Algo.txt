@@ -11,6 +11,34 @@ Graph:
 3. Eulerian path:
     Hierholzer
 
+158 Read N Characters Given Read4 II - Call multiple times
+    def __init__(self):
+        self.left = []
+
+    def read(self, buf, n):
+        count, reads = 0, [''] * 4
+
+        if self.left:
+            while count < min(n, len(self.left)):
+                buf[count] = self.left[count]
+                count += 1
+
+            self.left = self.left[count:]
+
+        while count < n:
+            size = read4(reads)
+            if not size:
+                break
+
+            length = min(n - count, size)
+            self.left = reads[length : size]
+
+            for i in xrange(length):
+                buf[count] = reads[i]
+                count += 1
+
+        return count
+
 164. Maximum Gap (radix sort, bucket sort, time:n, space:n)
     def maximumGap(self, nums):
         """
