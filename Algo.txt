@@ -648,6 +648,25 @@ class Solution {
                 i += 1
         return False
         
+264. Ugly Number II (Ugly numbers are positive numbers whose prime factors only include 2, 3, 5)
+    def nthUglyNumber(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        idx0, idx1, idx2 = 0, 0, 0
+        result = [1]
+        for i in range(1, n):
+            minnum = min(result[idx2]*5, min(result[idx0]*2, result[idx1]*3))
+            result.append(minnum)
+            if minnum == result[idx0]*2:
+                idx0 += 1
+            if minnum == result[idx1]*3:
+                idx1 += 1
+            if minnum == result[idx2]*5:
+                idx2 += 1
+        return result[-1]
+        
 394. Decode String
     def decodeString(self, s):
         """
