@@ -6,7 +6,7 @@ dfs and bfs should consider VISITED to avoid circle accessing.
 
 Graph:
 1. shortest path:
-    BFS, Dijkstra, Bellman-Ford
+    BFS, Dijkstra(VlogV with PQ), Bellman-Ford(VE, can handle negative edge)
 2. topological sort:
 3. Eulerian path:
     Hierholzer
