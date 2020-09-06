@@ -745,20 +745,25 @@ class Solution {
         
 300. Longest Increasing Subsequence
 # tails is an array storing the smallest tail of all increasing subsequences with length i+1 in tails[i]
-def lengthOfLIS(self, nums):
-    tails = [0] * len(nums)
-    size = 0
-    for x in nums:
-        i, j = 0, size
-        while i != j:
-            m = (i + j) / 2
-            if tails[m] < x:
-                i = m + 1
-            else:
-                j = m
-        tails[i] = x
-        size = max(i + 1, size)
-    return size
+    def lengthOfLIS(self, nums):
+        dp = [0] * len(nums)
+        length = 0
+        for x in nums:
+            left, right = 0, length-1
+            while left <= right:
+                mid = left + (right - left) // 2
+                if x == nums[mid]:
+                    left = mid
+                    break
+                if x < nums[mid]:
+                    right = mid - 1
+                elif x > nums[mid]:
+                    left = mid + 1
+            nums[left] = x
+            if left == length:
+                length += 1
+        
+        return length
         
 394. Decode String
     def decodeString(self, s):
