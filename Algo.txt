@@ -11,6 +11,23 @@ Graph:
 3. Eulerian path:
     Hierholzer
 
+11. Container With Most Water
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        result = 0
+        left, right = 0, len(height) - 1
+        while left < right:
+            if height[left] <= height[right]:
+                result = max(result, (right - left) * height[left])
+                left += 1
+            else:
+                result = max(result, (right - left) * height[right])
+                right -= 1
+        return result
+        
 158 Read N Characters Given Read4 II - Call multiple times
     def __init__(self):
         self.left = []
