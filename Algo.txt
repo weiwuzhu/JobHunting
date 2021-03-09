@@ -267,6 +267,29 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] 
     }
 }
 
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return []
+        nums.sort()
+        result = []
+        self.dfs(nums, 0, result)
+        return result
+        
+    def dfs(self, nums, start, result):
+        if start == len(nums):
+            result.append(list(nums))
+        
+        for i in range(start, len(nums)):
+            j = i - 1;
+            while j >= start and nums[j] != nums[i]:
+                j -= 1
+            if j != start - 1:
+                continue;
+            
+            nums[i], nums[start] = nums[start], nums[i]
+            self.dfs(nums, start+1, result)
+            nums[i], nums[start] = nums[start], nums[i]
+
 Subsets : https://leetcode.com/problems/subsets/
 
 public List<List<Integer>> subsets(int[] nums) {
