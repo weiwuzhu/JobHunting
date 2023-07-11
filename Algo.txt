@@ -416,6 +416,23 @@ def fullJustify(self, words, maxWidth):
     res.append( ' '.join(cur) + ' '*(maxWidth - num_of_letters - len(cur) + 1) )
     return res
 
+94. Binary Tree Inorder Traversal Iterative
+public List<Integer> inorderTraversal(TreeNode root) {
+    List<Integer> list = new ArrayList<Integer>();
+    Stack<TreeNode> stack = new Stack<TreeNode>();
+    TreeNode cur = root;
+    while(cur!=null || !stack.empty()){
+        while(cur!=null){
+            stack.add(cur);
+            cur = cur.left;
+        }
+        cur = stack.pop();
+        list.add(cur.val);
+        cur = cur.right;
+    }
+    return list;
+}
+
 102. Binary Tree Level Order Traversal
     def levelOrderBFS(self, root):
         if not root:
