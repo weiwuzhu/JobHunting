@@ -416,6 +416,7 @@ def fullJustify(self, words, maxWidth):
     res.append( ' '.join(cur) + ' '*(maxWidth - num_of_letters - len(cur) + 1) )
     return res
 
+Binary tree preorder, inorder, postorder traveral iterative https://leetcode.com/problems/binary-tree-postorder-traversal/solutions/45621/preorder-inorder-and-postorder-traversal-iterative-java-solution/
 94. Binary Tree Inorder Traversal Iterative
 public List<Integer> inorderTraversal(TreeNode root) {
     List<Integer> list = new ArrayList<Integer>();
