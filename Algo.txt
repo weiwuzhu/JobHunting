@@ -4,6 +4,10 @@ Catalan Number: 1/(n+1)C(n, 2n) = f(0)*f(n) + f(1)*f(n-1) + f(2)*f(n-2) + ... + 
 polynomial, exponential, Nth power of 2 (2^n)
 dfs and bfs should consider VISITED to avoid circle accessing.
 
+Read 1 MB sequentially from SSD: 1ms
+Read 1 MB sequentially from memory: 0.25ms
+Read 1 MB sequentially from disk: 20ms
+
 Graph:
 1. shortest path:
     BFS, Dijkstra(VlogV with PQ), Bellman-Ford(VE, can handle negative edge)
