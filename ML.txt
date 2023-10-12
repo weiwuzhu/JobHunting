@@ -5,3 +5,16 @@ Adam optimizor : 1) Momentum; 2) RSMProp (Root Mean Square Propagation) https://
 
 Adam VS. AdamW: Adam + Weight decay (L2 normalization)
 
+AUC (area under ROC curve) https://www.evidentlyai.com/classification-metrics/explain-roc-curve
+  The higher the AUC, the better the model’s performance at distinguishing between the positive and negative classes.
+  An AUC score of 1 means the classifier can perfectly distinguish between all the Positive and the Negative class points.
+  An AUC value of 0 shows that the classifier predicts all Negatives as Positives and vice versa.
+  AUC 0.5 means that the classifier is not able to distinguish positives and negatives.
+Pros:
+  It is a suitable evaluation metric for imbalanced data. ROC AUC measures the model's ability to discriminate between the positive and negative classes, regardless of their relative frequencies in the dataset.
+  Scale-invariant. ROC AUC measures how well predictions are ranked rather than their absolute values. This way, it helps compare the quality of models that might output "different ranges" of predicted probabilities. It is typically relevant when you experiment with different models during the model training stage.
+Cons:
+  It can be misleading if the class imbalance is severe. When the positive class is very small, ROC AUC can give a false impression of high quality. Imagine that a classifier predicts almost all instances as negative. TPR and FPR will be close to 0 because there are few positive predictions. As a result, the ROC curve will appear to "hug" the top left corner of the plot, giving the impression that the classifier is performing well and definitely better than random. However, though it correctly classifies most of the negative instances, it may miss most of the positives, which is likely more important for the model performance. In this case, it may be more appropriate to look at the precision-recall curve and rely on metrics like precision, recall, or F1-score to evaluate ML model quality.
+ROC:
+  Y: True Positive Rate (TPR, Recall), TP/TP+FN
+  X: False Positive Rate, FP/FP+TN
