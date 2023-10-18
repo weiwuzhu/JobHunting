@@ -19,3 +19,9 @@ Cons:
 ROC:
   Y: True Positive Rate (TPR, Recall), TP/TP+FN
   X: False Positive Rate, FP/FP+TN
+
+Batch Norm & Layer Norm
+  Batch normalization normalizes each feature independently across the mini-batch.
+  Layer normalization normalizes each of the inputs in the batch independently across all features.
+  As batch normalization is dependent on batch size, it’s not effective for small batch sizes. Layer normalization is independent of the batch size, so it can be applied to batches with smaller sizes as well.
+  Batch normalization requires different processing at training and inference times. As layer normalization is done along the length of input to a specific layer, the same set of operations can be used at both training and inference times.
