@@ -1,6 +1,6 @@
 Binary cross entropy: −(ylog(p)+(1−y)log(1−p))
 
-Adam optimizor : 1) Momentum; 2) RSMProp (Root Mean Square Propagation) https://www.geeksforgeeks.org/intuition-of-adam-optimizer/
+Adam optimizor : 1) Momentum; 2) RMSProp (Root Mean Square Propagation) https://www.geeksforgeeks.org/intuition-of-adam-optimizer/
   α: learning rate (0.001)
   β1 & β2: decay rates of average of gradients (β1 = 0.9 & β2 = 0.999)
   ϵ: a small constant to avoid 'division by 0' (10-8))
